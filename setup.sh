@@ -17,6 +17,7 @@ sudo apt install -y \
   fonts-powerline \
   jq \
   hcloud-cli \
+  vlc \
   screenfetch
 
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
@@ -26,6 +27,7 @@ python -m pip install ansible hcloud
 
 # install snap packages
 sudo snap install android-studio --classic
+sudo snap install atom --classic
 sudo snap install barrier
 sudo snap install beekeeper-studio
 sudo snap install chromium
@@ -43,6 +45,7 @@ sudo snap install multipass
 sudo snap install netbeans --classic
 sudo snap install powershell --classic
 sudo snap install pycharm-community --classic
+sudo snap install spotify
 sudo snap install thunderbird
 
 # install gnome shell extensions:

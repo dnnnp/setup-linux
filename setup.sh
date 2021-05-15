@@ -15,7 +15,8 @@ sudo apt install -y \
   powerline-gitstatus \
   fonts-powerline \
   jq \
-  hcloud-cli
+  hcloud-cli \
+  screenfetch
 
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 

@@ -10,6 +10,7 @@ sudo apt install -y \
   guake \
   git \
   node-typescript \
+  tilix \
   make
   
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1

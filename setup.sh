@@ -51,6 +51,7 @@ sudo snap install vlc
 
 # install gnome shell extensions:
 sudo apt install -y \
+  gnome-shell-extensions \
   gnome-shell-extension-arc-menu \
   gnome-shell-extension-dash-to-panel \
   gnome-shell-extension-desktop-icons \

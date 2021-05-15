@@ -113,9 +113,23 @@ show-show-apps-button=false
 [pop-shell]
 tile-by-default=false"
 
-
 git clone https://github.com/pop-os/shell.git
 cd shell
 make local-install
 cd ..
 rm shell -rf
+
+mkdir -p ~/.config/autostart/
+
+cat <<EOF > ~/.config/autostart/guake.desktop
+[Desktop Entry]
+Name=Guake Terminal
+Comment=Use the command line in a Quake-like terminal
+TryExec=guake
+Exec=guake
+Icon=guake
+Type=Application
+Categories=GNOME;GTK;System;Utility;TerminalEmulator;
+StartupNotify=true
+X-Desktop-File-Install-Version=0.22
+EOF

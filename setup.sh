@@ -17,7 +17,6 @@ sudo apt install -y \
   fonts-powerline \
   jq \
   hcloud-cli \
-  vlc \
   screenfetch
 
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
@@ -47,6 +46,7 @@ sudo snap install powershell --classic
 sudo snap install pycharm-community --classic
 sudo snap install spotify
 sudo snap install thunderbird
+sudo snap install vlc
 
 # install gnome shell extensions:
 sudo apt install -y \

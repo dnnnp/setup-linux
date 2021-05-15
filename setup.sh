@@ -17,6 +17,7 @@ sudo apt install -y \
   fonts-powerline \
   jq \
   hcloud-cli \
+  default-jdk \
   screenfetch
 
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1

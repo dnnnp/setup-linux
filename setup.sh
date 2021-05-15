@@ -10,8 +10,13 @@ sudo apt install -y \
   guake \
   git \
   node-typescript \
-  make
-  
+  make \
+  powerline \
+  powerline-gitstatus \
+  fonts-powerline \
+  jq \
+  hcloud-cli
+
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 python -m pip install -U pip
@@ -87,6 +92,13 @@ allow-bold=true
 palette='#000000000000:#cccc00000000:#4e4e9a9a0606:#c4c4a0a00000:#34346565a4a4:#757550507b7b:#060698209a9a:#d3d3d7d7cfcf:#555557575353:#efef29292929:#8a8ae2e23434:#fcfce9e94f4f:#72729f9fcfcf:#adad7f7fa8a8:#3434e2e2e2e2:#eeeeeeeeecec:#ffffffffffff:#000000000000'
 palette-name='Tango'"
 
+# install pop shell extension
+git clone https://github.com/pop-os/shell.git
+cd shell
+make local-install
+cd ..
+rm shell -rf
+
 dconf load /org/gnome/shell/extensions/ <<<"[arc-menu]
 dtp-dtd-state=[true, false]
 pinned-app-list=['Firefox Web Browser', 'firefox', 'firefox.desktop', 'Terminal', 'utilities-terminal', 'org.gnome.Terminal.desktop', 'Arc Menu Settings', 'ArcMenu_ArcMenuIcon', 'gnome-extensions prefs arc-menu@linxgem33.com']
@@ -113,12 +125,7 @@ show-show-apps-button=false
 [pop-shell]
 tile-by-default=false"
 
-git clone https://github.com/pop-os/shell.git
-cd shell
-make local-install
-cd ..
-rm shell -rf
-
+# autostart apps (guake)
 mkdir -p ~/.config/autostart/
 
 cat <<EOF > ~/.config/autostart/guake.desktop
@@ -133,3 +140,115 @@ Categories=GNOME;GTK;System;Utility;TerminalEmulator;
 StartupNotify=true
 X-Desktop-File-Install-Version=0.22
 EOF
+
+# powerline config
+mkdir -p ~/.config/powerline
+cp -R /usr/share/powerline/config_files/* ~/.config/powerline/
+
+cat <<EOF | jq . > ~/.config/powerline/config.json
+{
+	"common": {
+		"term_truecolor": false
+	},
+	"ext": {
+		"ipython": {
+			"colorscheme": "default",
+			"theme": "in",
+			"local_themes": {
+				"rewrite": "rewrite",
+				"out": "out",
+				"in2": "in2"
+			}
+		},
+		"pdb": {
+			"colorscheme": "default",
+			"theme": "default"
+		},
+		"shell": {
+			"colorscheme": "default",
+			"theme": "default_leftonly",
+			"local_themes": {
+				"continuation": "continuation",
+				"select": "select"
+			}
+		},
+		"tmux": {
+			"colorscheme": "default",
+			"theme": "default"
+		},
+		"vim": {
+			"colorscheme": "default",
+			"theme": "default",
+			"local_themes": {
+				"__tabline__": "tabline",
+
+				"cmdwin": "cmdwin",
+				"help": "help",
+				"quickfix": "quickfix",
+
+				"powerline.matchers.vim.plugin.nerdtree.nerdtree": "plugin_nerdtree",
+				"powerline.matchers.vim.plugin.commandt.commandt": "plugin_commandt",
+				"powerline.matchers.vim.plugin.gundo.gundo": "plugin_gundo",
+				"powerline.matchers.vim.plugin.gundo.gundo_preview": "plugin_gundo-preview"
+			}
+		},
+		"wm": {
+			"colorscheme": "default",
+			"theme": "default",
+			"update_interval": 2
+		}
+	}
+}
+EOF
+
+cat <<EOF | jq . > ~/.config/powerline/themes/shell/default_leftonly.json
+{
+	"segments": {
+		"left": [
+			{
+				"function": "powerline.segments.common.net.hostname",
+				"priority": 10
+			},
+			{
+				"function": "powerline.segments.common.env.user",
+				"priority": 30
+			},
+			{
+				"function": "powerline.segments.common.env.virtualenv",
+				"priority": 50
+			},
+			{
+				"function": "powerline.segments.common.vcs.branch",
+				"priority": 40,
+				"args": { "status_colors": true }
+			},
+			{
+				"function": "powerline.segments.shell.cwd",
+				"priority": 10
+			},
+			{
+				"function": "powerline.segments.shell.jobnum",
+				"priority": 20
+			},
+			{
+				"function": "powerline.segments.shell.last_pipe_status",
+				"priority": 10
+			}
+		]
+	}
+}
+EOF
+
+cat<<EOF >> ~/.bashrc
+# Powerline configuration
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  source /usr/share/powerline/bindings/bash/powerline.sh
+fi
+
+source <(hcloud completion bash)
+EOF
+
+

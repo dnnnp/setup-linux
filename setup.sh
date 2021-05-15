@@ -251,4 +251,5 @@ fi
 source <(hcloud completion bash)
 EOF
 
+# repeat above steps for root via sudo su
 

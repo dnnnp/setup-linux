@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt update && sudo apt dist-upgrade -y
-sudo apt install python3 python3-pip golang snapd build-essential python3-dev guake -y
+sudo apt install python3 python3-pip golang snapd build-essential python3-dev guake git node-typescript make -y
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 python -m pip install -U pip
@@ -27,3 +27,9 @@ sudo snap install netbeans --classic
 sudo snap install powershell --classic
 sudo snap install pycharm-community --classic
 sudo snap install thunderbird
+
+git clone https://github.com/pop-os/shell.git
+cd shell
+make local-install
+cd ..
+rm shell -rf

@@ -26,28 +26,8 @@ python -m pip install -U pip
 python -m pip install ansible hcloud
 
 # install snap packages
-sudo snap install android-studio --classic
-sudo snap install atom --classic
-sudo snap install barrier
-sudo snap install beekeeper-studio
-sudo snap install chromium
-sudo snap install code --classic
-sudo snap install flameshot
-sudo snap install gimp
-sudo snap install go --classic
-sudo snap install inkscape
-sudo snap install insomnia
-sudo snap install intellij-idea-community --classic
-sudo snap install kotlin --classic
-sudo snap install libreoffice
-sudo snap install lxd
-sudo snap install multipass
-sudo snap install netbeans --classic
-sudo snap install powershell --classic
-sudo snap install pycharm-community --classic
-sudo snap install spotify
-sudo snap install thunderbird
-sudo snap install vlc
+for i in android-studio atom code go intellij-idea-community netbeans powershell pycharm-community; do sudo snap install "$i" --classic; done
+sudo snap install barrier beekeeper-studio chromium flameshot gimp inkscape insomnia libreoffice lxd multipass spotify thunderbird vlc
 
 # install gnome shell extensions:
 sudo apt install -y \
